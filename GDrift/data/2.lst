@@ -1,0 +1,11 @@
+GENES
+AA:c:255,0,0:d
+AB:c:0,255,0:d
+AC:c:255,0,255:d
+AD:c:0,0,255:d
+END
+
+ORGANISMS
+3:color,AA,AB
+3:color,AC,AD
+END
