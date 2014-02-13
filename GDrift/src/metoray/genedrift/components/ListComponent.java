@@ -36,8 +36,6 @@ public class ListComponent extends WorldComponent {
 	public List<Organism> organismList;
 	private Random rand;
 	private int scroll;
-	private int sindex;
-	private int sindex2;
 	public int timer = 0;
 	public int hoverIndex = -1;
 	private int lastmousex = 0;
@@ -49,8 +47,6 @@ public class ListComponent extends WorldComponent {
 		selectedOrganisms = new ArrayList<Organism>();
 		rand = new Random();
 		this.parseFile2(file);
-		sindex = -1;
-		sindex2 = -1;
 	}
 	
 	public ListComponent() {
@@ -87,6 +83,15 @@ public class ListComponent extends WorldComponent {
 				}
 			}
 		}
+		if(in.isKeyPressed(in.KEY_UP)){
+			scroll-=120;
+			if(scroll<0){
+				scroll=0;
+			}
+		}
+		if(in.isKeyPressed(in.KEY_DOWN)){
+			scroll+=120;			
+		}
 	}
 	
 	public void tickRandom(){
@@ -100,7 +105,6 @@ public class ListComponent extends WorldComponent {
 				for(Organism o: organismList){
 					double chance = 0.000005d;
 					double ammount = o.ammount;
-					double tempDmg = 0.0d;
 					double temp = TaskbarComponent.instance.hot.getValue();
 					double maxTemp = o.maxTemp();
 					double minTemp = o.minTemp();
@@ -192,13 +196,13 @@ public class ListComponent extends WorldComponent {
 	public void clickat(int x, int y) {
 		if(x>460&&x<480){
 			if(y<40){
-				scroll-=40;
+				scroll-=120;
 				if(scroll<0){
 					scroll=0;
 				}
 			}
 			if(y>460){
-				scroll+=40;
+				scroll+=120;
 			}
 		}else{
 			int newy = (y-20+scroll)/40;
@@ -210,16 +214,14 @@ public class ListComponent extends WorldComponent {
 				}
 			}
 		}
-		selectOnLoc(x,y);
 	}
 	
 	public void rclickat(int x, int y) {
-		if(!(x>620)){
+		if(!(x>460&&x<480)){
 			int newy = (y-20+scroll)/40;
-			if(sindex2==newy){
-				sindex2 = -1;
-			}else{
-				sindex2 = newy;
+			if(newy<organismList.size()){
+				selectedOrganisms.clear();
+				selectedOrganisms.add(organismList.get(newy));
 			}
 		}
 	}
@@ -271,7 +273,7 @@ public class ListComponent extends WorldComponent {
 	@Deprecated
 	public void delete(){
 		if(getSelected()!=null){
-			EventExecutionBus.delete(HistoryComponent.instance, getSelected());
+			EventExecutionBus.delete(HistoryComponent.instance, "delete", getSelected());
 			getSelected().die("delete");
 		}
 	}
@@ -432,6 +434,17 @@ public class ListComponent extends WorldComponent {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void scrlUp(){
+		scroll-=120;
+		if(scroll<0){
+			scroll=0;
+		}
+	}
+	
+	public void scrlDn(){
+		scroll+=120;
 	}
 
 }

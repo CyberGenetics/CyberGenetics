@@ -50,6 +50,9 @@ public class StartState implements IState {
 				GDrift.instance.setState(new MainState(fileList.get(index)));
 			}
 		}
+		if(in.isKeyPressed(Input.KEY_ESCAPE)){
+			System.exit(0);
+		}
 	}
 
 }

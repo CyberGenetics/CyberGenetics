@@ -65,15 +65,18 @@ public class HistoryComponent extends Component {
 	}
 	
 	public void logic(GameContainer gc){
-		if(gc.getInput().isKeyPressed(Keyboard.KEY_DOWN)){
-			scrolly++;
+
+	}
+	
+	public void scrlUp(){
+		scrolly--;
+		if(scrolly<0){
+			scrolly=0;
 		}
-		if(gc.getInput().isKeyPressed(Keyboard.KEY_UP)){
-			scrolly--;
-			if(scrolly<0){
-				scrolly=0;
-			}
-		}
+	}
+	
+	public void scrlDn(){
+		scrolly++;
 	}
 
 	public void addEvent(Event event) {

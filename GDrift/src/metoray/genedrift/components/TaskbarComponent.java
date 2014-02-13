@@ -17,9 +17,9 @@ public class TaskbarComponent extends Component {
 	private TBB[] left;
 	
 	private TBB stop;
-	private TBB pause;
-	private TBB play;
-	private TBB forward;
+	private TBBVal pause;
+	public TBBVal play;
+	private TBBVal forward;
 	private TBB plus;
 	private TBB plus10;
 	public TTBB plusplus;
@@ -32,7 +32,6 @@ public class TaskbarComponent extends Component {
 	public TBBVal hot;
 	public TBBVal cold;
 	
-	public int runspeed;
 	public Component history;
 	public WorldComponent world;
 	public int timer;
@@ -43,15 +42,14 @@ public class TaskbarComponent extends Component {
 	
 	public TaskbarComponent(Component history, WorldComponent world){
 		super();
-		runspeed = 1;
 		timer = 1;
 		instance = this;
 		this.history = history;
 		this.world = world;
 		stop = new TBB("stop","Gaat terug naar het hoofdmenu");
-		pause = new TBB("pause","Zet automatische mode stil");
-		play = new TBB("play","Start automatische mode weer op");
-		forward = new TBB("forward","Versnelt automatische mode");
+		play = new TBBVal("play","Zet snelheid op 1   snelheid: ",1, 0);
+		pause = new TBBVal("pause","Zet automatische mode stil   snelheid: ", play, 0);
+		forward = new TBBVal("forward","Versnelt automatische mode   snelheid: ", play, 1);
 		plus = new TBB("plus","Combineert willekeurig 2 organismen");
 		plus10 = new TBB("plus10","Combineert willekeurig 2 organismen, 10 keer");
 		plusplus = new TTBB("plusplus","Combineert automatisch willekeurig organismen",false);
@@ -96,20 +94,17 @@ public class TaskbarComponent extends Component {
 		if(a instanceof TTBB){
 			((TTBB) a).toggle();
 		}
+		if(a==play){
+			play.value = 1;
+		}
+		if(a==pause){
+			play.value = 0;
+		}
 		if(a instanceof TBBVal){
 			((TBBVal) a).increase(((TBBVal) a).modifier);
 		}
 		if(a==stop){
 			GDrift.instance.setState(new StartState());
-		}
-		if(a==play){
-			runspeed = 1;
-		}
-		if(a==pause){
-			runspeed = 0;
-		}
-		if(a==forward){
-			runspeed++;
 		}
 		if(a==book){
 			history.setVisible(!history.getVisible());

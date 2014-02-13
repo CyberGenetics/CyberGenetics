@@ -54,6 +54,20 @@ public class MainState implements IState {
 	public void logic(GameContainer gc) {
 		history.logic(gc);
 		Input in = gc.getInput();
+		if(in.isKeyPressed(Input.KEY_UP)){
+			if(history.getVisible()){
+				history.scrlUp();
+			}else{
+				world.scrlUp();
+			}
+		}
+		if(in.isKeyPressed(Input.KEY_DOWN)){
+			if(history.getVisible()){
+				history.scrlDn();
+			}else{
+				world.scrlDn();
+			}
+		}
 		if(in.isKeyPressed(Input.KEY_ESCAPE)){
 			System.exit(0);
 		}
@@ -76,7 +90,7 @@ public class MainState implements IState {
 		if(in.isKeyPressed(Input.KEY_DELETE)){
 			world.delete();
 		}
-		world.logic(taskbar.runspeed, gc);
+		world.logic((Integer)taskbar.play.value, gc);
 		
 	}
 

@@ -141,9 +141,7 @@ public class Organism {
 	}
 
 	public void die(String reason) {
-		if(reason.equals("delete")){
-			EventExecutionBus.delete(HistoryComponent.instance, this);
-		}
+		EventExecutionBus.delete(HistoryComponent.instance, reason, this);
 		this.isDead = true;
 	}
 	

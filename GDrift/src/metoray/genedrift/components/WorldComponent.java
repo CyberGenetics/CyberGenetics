@@ -183,7 +183,7 @@ public class WorldComponent extends Component {
 	
 	public void delete(){
 		if(getSelected()!=null){
-			EventExecutionBus.delete(HistoryComponent.instance, getSelected());
+			EventExecutionBus.delete(HistoryComponent.instance, "nothing", getSelected());
 			getSelected().die("delete");
 		}
 	}
@@ -250,6 +250,16 @@ public class WorldComponent extends Component {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void scrlUp() {
+		// NOTHGING
+		
+	}
+
+	public void scrlDn() {
+		// NOPE
+		
 	}
 
 }

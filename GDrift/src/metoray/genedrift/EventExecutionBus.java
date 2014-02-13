@@ -36,8 +36,16 @@ public class EventExecutionBus {
 		history.addEvent(event);
 	}
 	
-	public static void delete(HistoryComponent history, Organism... organisms){
-		history.addEvent(new DeleteEvent(history, organisms));
+	public static void delete(HistoryComponent history, String reason, Organism... organisms){
+		if(reason=="delete"){
+			history.addEvent(new DeleteEvent(history, organisms));
+		}
+		if(reason=="heat"){
+			history.addEvent(new OverHeatEvent(history, organisms));
+		}
+		if(reason=="freeze"){
+			history.addEvent(new FreezeEvent(history, organisms));
+		}
 	}
 
 }
